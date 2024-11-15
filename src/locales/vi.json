@@ -1,0 +1,18 @@
+{
+    "app_title": "Cuộc gọi video nhóm",
+    "record_video": "Quay video",
+    "record_screen": "Ghi màn hình",
+    "close": "Đóng",
+    "create_room": "Tạo phòng",
+    "your_name": "Tên của bạn",
+    "enter_room": "Vào phòng",
+    "chat": "TRÒ CHUYỆN",
+    "send": "Gửi",
+    "type_here": "Nhập tại đây...",
+    "room_name": "Tên phòng",
+    "roomCreated": "Tạo phòng thành công. Ấn vào ",
+    "clickHere": "đây",
+    "shareLinkWithPartners": " để vào phòng. Chia sẻ link với người tham gia khác.",
+    "allFieldsRequired": "Tất cả các trường đều phải được điền đầy đủ",
+    "usernameRequired": "Vui lòng nhập tên của bạn"
+}
