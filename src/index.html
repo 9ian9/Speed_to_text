@@ -6,14 +6,17 @@
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel='stylesheet' href='assets/css/app.css' type="text/css">
 
     <script src='/socket.io/socket.io.js'></script>
     <script type="module" src='assets/js/rtc.js'></script>
     <script type="module" src='assets/js/events.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.min.js" integrity="sha256-2qQheewaqnZlXJ3RJRghVUwD/3fD9HNqxh4C+zvgmF4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.min.js"
+        integrity="sha256-2qQheewaqnZlXJ3RJRghVUwD/3fD9HNqxh4C+zvgmF4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js'></script>
     <script src='https://cdn.rawgit.com/yahoo/xss-filters/master/dist/xss-filters.js'></script>
@@ -21,6 +24,8 @@
     <script src="https://unpkg.com/i18next/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
+
 
 </head>
 
@@ -96,12 +101,14 @@
 
             <div class="col-12 col-md-4 offset-md-4 mb-3">
                 <label for="room-name" data-i18n="room_name">Room Name</label>
-                <input type="text" id='room-name' class="form-control rounded-0" placeholder="Room Name">
+                <input type="text" id='room-name' class="form-control rounded-0" placeholder=""
+                    data-i18n="your_room_placeholder">
             </div>
 
             <div class="col-12 col-md-4 offset-md-4 mb-3">
                 <label for="your-name" data-i18n="your_name">Your Name</label>
-                <input type="text" id='your-name' class="form-control rounded-0" placeholder="Your Name">
+                <input type="text" id='your-name' class="form-control rounded-0" placeholder="Your Name"
+                    data-i18n="your_name">
             </div>
 
             <div class="col-12 col-md-4 offset-md-4 mb-3">
@@ -125,7 +132,8 @@
 
             <div class="col-12 col-md-4 offset-md-4 mb-3">
                 <label for="username" data-i18n="your_name">Your Name</label>
-                <input type="text" id='username' class="form-control rounded-0" placeholder="Your Name">
+                <input type="text" id='username' class="form-control rounded-0" placeholder=""
+                    data-i18n="your_name_placeholder">
             </div>
 
             <div class="col-12 col-md-4 offset-md-4 mb-3">
@@ -154,9 +162,11 @@
 
                 <form>
                     <div class="input-group mb-3">
-                        <textarea id="chat-input" class="form-control rounded-0 chat-box border-info" rows='3' placeholder="" data-i18n="type_here"></textarea>
+                        <textarea id="chat-input" class="form-control rounded-0 chat-box border-info" rows='3'
+                            placeholder="" data-i18n="type_here"></textarea>
                         <div class="input-group-append" id='chat-input-btn'>
-                            <button type="button" class="btn btn-dark rounded-0 border-info btn-no-effect" data-i18n="send">Send</button>
+                            <button type="button" class="btn btn-dark rounded-0 border-info btn-no-effect"
+                                data-i18n="send">Send</button>
                         </div>
                     </div>
                 </form>
@@ -172,12 +182,13 @@
         .use(i18nextHttpBackend)
         .use(i18nextBrowserLanguageDetector)
         .init({
+            lng: 'en',
             fallbackLng: 'en',
             debug: true,
             backend: {
                 loadPath: '/locales/{{lng}}.json'
             }
-        }, function(err, t) {
+        }, function (err, t) {
             // Cập nhật nội dung giao diện khi i18n sẵn sàng
             updateContent();
         });
@@ -190,10 +201,15 @@
         document.getElementById('closeModal').innerText = i18next.t('close');
         document.getElementById('create-room').innerText = i18next.t('create_room');
         document.querySelectorAll('[data-i18n]').forEach(el => {
-            el.innerText = i18next.t(el.dataset.i18n);
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.setAttribute('placeholder', i18next.t(el.dataset.i18n));
+            } else {
+                // Cập nhật nội dung văn bản thông thường
+                el.innerText = i18next.t(el.dataset.i18n);
+            }
         });
     }
-
+    document.querySelector('select').value = i18next.language || 'en';
     // Đổi ngôn ngữ khi người dùng chọn
     function changeLanguage(lng) {
         i18next.changeLanguage(lng, updateContent);

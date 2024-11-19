@@ -10,6 +10,8 @@
     "send": "Send",
     "type_here": "Type here...",
     "room_name": "Room Name",
+    "your_name_placeholder": "Enter your name",
+    "your_room_placeholder": "Enter room name",
     "roomCreated": "Room successfully created. Click",
     "clickHere": "here",
     "shareLinkWithPartners": "to enter room. Share the room link with your partners.",
